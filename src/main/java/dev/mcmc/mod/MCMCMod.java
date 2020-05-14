@@ -91,8 +91,6 @@ public class MCMCMod
 		{
 			ex.printStackTrace();
 		}
-
-		LOGGER.info("Token updated!");
 	}
 
 	public static boolean getReportCrashes()

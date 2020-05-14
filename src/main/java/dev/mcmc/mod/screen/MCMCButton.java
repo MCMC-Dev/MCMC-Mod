@@ -38,7 +38,7 @@ public class MCMCButton extends AbstractButton
 			return;
 		}
 
-		if (MCMCMod.getToken().equals("-"))
+		if (MCMCMod.getToken().isEmpty() || MCMCMod.getToken().equals("-"))
 		{
 			Minecraft.getInstance().displayGuiScreen(new SetupScreen(Minecraft.getInstance().currentScreen));
 		}
