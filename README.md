@@ -1,1 +1,1 @@
-# MCMC-Mod
+# MCMC Mod
