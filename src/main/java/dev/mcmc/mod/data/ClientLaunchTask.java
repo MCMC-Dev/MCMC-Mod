@@ -123,7 +123,12 @@ public class ClientLaunchTask implements Runnable
 
 		data.put("gl_arb_caps", ARBCaps.get(caps));
 		data.put("gl_ext_caps", EXTCaps.get(caps));
-		data.put("gl_vendor", GlStateManager.getString(GL11.GL_VENDOR));
+
+		if (!GlStateManager.getString(GL11.GL_VENDOR).equals("NVIDIA Corporation"))
+		{
+			data.put("gl_vendor", GlStateManager.getString(GL11.GL_VENDOR));
+		}
+
 		data.put("gl_renderer", GlStateManager.getString(GL11.GL_RENDERER));
 		data.put("gl_version", GlStateManager.getString(GL11.GL_VERSION));
 
@@ -132,7 +137,11 @@ public class ClientLaunchTask implements Runnable
 			GlStateManager.texImage2D(GL_PROXY_TEXTURE_2D, 0, GL_RGBA, i, i, 0, GL_RGBA, GL_UNSIGNED_BYTE, null);
 			if (GlStateManager.getTexLevelParameter(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH) != 0)
 			{
-				data.put("gl_max_texture_size", i);
+				if (i != 16384)
+				{
+					data.put("gl_max_texture_size", i);
+				}
+
 				break;
 			}
 		}
