@@ -4,9 +4,9 @@ issueTrackerURL="https://github.com/MCMC-Dev/MCMC-Mod/issues"
 
 [[mods]]
 modId="mcmc"
-version="${file.jarVersion}"
-displayName="MCMC"
-authors="LatvianModder"
+version = "${file.jarVersion}"
+displayName = "MCMC Mod"
+authors = "LatvianModder"
 description='''
 Collects analytics data and sends crash reports to modpack authors
 '''

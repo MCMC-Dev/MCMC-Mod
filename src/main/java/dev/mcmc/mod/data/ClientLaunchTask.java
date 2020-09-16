@@ -21,8 +21,6 @@ import java.net.Proxy;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.lwjgl.opengl.GL11.*;
-
 /**
  * @author LatvianModder
  */
@@ -134,8 +132,8 @@ public class ClientLaunchTask implements Runnable
 
 		for (int i = 0x4000; i > 0; i >>= 1)
 		{
-			GlStateManager.texImage2D(GL_PROXY_TEXTURE_2D, 0, GL_RGBA, i, i, 0, GL_RGBA, GL_UNSIGNED_BYTE, null);
-			if (GlStateManager.getTexLevelParameter(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH) != 0)
+			GlStateManager.texImage2D(GL11.GL_PROXY_TEXTURE_2D, 0, GL11.GL_RGBA, i, i, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, null);
+			if (GlStateManager.getTexLevelParameter(GL11.GL_PROXY_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH) != 0)
 			{
 				if (i != 16384)
 				{

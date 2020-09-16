@@ -71,6 +71,6 @@ public class MCMCButton extends AbstractButton
 	@Override
 	public void renderToolTip(int x, int y)
 	{
-		Minecraft.getInstance().currentScreen.renderTooltip("MCMC", x, y);
+		Minecraft.getInstance().currentScreen.renderTooltip("MCMC Mod", x, y);
 	}
 }
