@@ -1,5 +1,6 @@
 package dev.mcmc.mod.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mcmc.mod.MCMCMod;
@@ -7,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -18,7 +20,7 @@ public class MCMCButton extends AbstractButton
 
 	public MCMCButton(int x, int y, int w, int h)
 	{
-		super(x, y, w, h, "MCMC");
+		super(x, y, w, h, new StringTextComponent("MCMC"));
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class MCMCButton extends AbstractButton
 	}
 
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partialTicks)
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
 	{
 		Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(TEXTURE);
@@ -60,17 +62,17 @@ public class MCMCButton extends AbstractButton
 
 		if (isHovered())
 		{
-			blit(x, y, 16, 0, 16, 16, 32, 16);
+			blit(matrixStack, x, y, 16, 0, 16, 16, 32, 16);
 		}
 		else
 		{
-			blit(x, y, 0, 0, 16, 16, 32, 16);
+			blit(matrixStack, x, y, 0, 0, 16, 16, 32, 16);
 		}
 	}
 
 	@Override
-	public void renderToolTip(int x, int y)
+	public void renderToolTip(MatrixStack matrixStack, int x, int y)
 	{
-		Minecraft.getInstance().currentScreen.renderTooltip("MCMC Mod", x, y);
+		Minecraft.getInstance().currentScreen.renderTooltip(matrixStack, new StringTextComponent("MCMC Mod"), x, y);
 	}
 }

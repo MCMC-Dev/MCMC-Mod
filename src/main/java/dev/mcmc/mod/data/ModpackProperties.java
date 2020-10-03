@@ -5,6 +5,5 @@ package dev.mcmc.mod.data;
  */
 public class ModpackProperties
 {
-	public String modpack = "";
 	public String version = "";
 }

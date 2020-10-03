@@ -2,6 +2,7 @@ package dev.mcmc.mod;
 
 import dev.mcmc.mod.client.MCMCModClient;
 import dev.mcmc.mod.data.ModpackProperties;
+import net.minecraft.util.SharedConstants;
 import net.minecraftforge.fml.CrashReportExtender;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -23,8 +24,8 @@ import java.util.prefs.Preferences;
 public class MCMCMod
 {
 	public static final int API_VERSION = 1;
-	public static final String MOD_ID = "mcmc";
-	public static final Logger LOGGER = LogManager.getLogger("MCMC");
+	public static final String MOD_ID = "mcmcmod";
+	public static final Logger LOGGER = LogManager.getLogger("MCMC Mod");
 
 	public static MCMCModCommon proxy;
 	private static Preferences userPreferences;
@@ -65,6 +66,12 @@ public class MCMCMod
 			{
 				ex.printStackTrace();
 			}
+		}
+
+		if (modpackProperties.version.isEmpty())
+		{
+			modpackProperties.version = "unknown+" + SharedConstants.getVersion().getName();
+			MCMCMod.LOGGER.warn("Modpack isn't set up properly! Using version " + MCMCMod.modpackProperties.version);
 		}
 	}
 

@@ -9,7 +9,7 @@ import dev.mcmc.mod.client.ARBCaps;
 import dev.mcmc.mod.client.EXTCaps;
 import dev.mcmc.mod.client.MCMCModClient;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.ClientResourcePackInfo;
+import net.minecraft.resources.ResourcePackInfo;
 import net.minecraft.util.Session;
 import net.minecraft.util.Util;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -99,7 +99,7 @@ public class ClientLaunchTask implements Runnable
 
 		int resourcePacks = 0;
 
-		for (ClientResourcePackInfo pack : mc.getResourcePackList().getEnabledPacks())
+		for (ResourcePackInfo pack : mc.getResourcePackList().getEnabledPacks())
 		{
 			if (!pack.isAlwaysEnabled() && !pack.isOrderLocked())
 			{

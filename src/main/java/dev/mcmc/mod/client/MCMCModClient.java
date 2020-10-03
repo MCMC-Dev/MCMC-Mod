@@ -13,7 +13,14 @@ import net.minecraft.client.gui.screen.MultiplayerScreen;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.ChatType;
+import net.minecraft.util.text.Color;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.GameType;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -30,22 +37,21 @@ public class MCMCModClient extends MCMCModCommon
 {
 	public static String launchId = "";
 	public static ClientSession currentSession = null;
+	private static Style setupModpackStyle;
 
 	@Override
 	public void init()
 	{
 		MinecraftForge.EVENT_BUS.register(MCMCModClient.class);
+		setupModpackStyle = Style.EMPTY
+				.setUnderlined(true)
+				.setColor(Color.fromTextFormatting(TextFormatting.BLUE))
+				.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://mcmc.dev/modpack-setup"));
 	}
 
 	@Override
 	public void launch()
 	{
-		if (MCMCMod.modpackProperties.version.isEmpty())
-		{
-			MCMCMod.LOGGER.warn("Modpack isn't set up properly!");
-			return;
-		}
-
 		String token = MCMCMod.getToken();
 
 		if (token.isEmpty() || token.equals("-"))
@@ -77,15 +83,19 @@ public class MCMCModClient extends MCMCModCommon
 	@SubscribeEvent
 	public static void loggedIn(ClientPlayerNetworkEvent.LoggedInEvent event)
 	{
+		if (MCMCMod.modpackProperties.version.startsWith("unknown+"))
+		{
+			Minecraft.getInstance().ingameGUI.func_238450_a_(ChatType.CHAT, new TranslationTextComponent("mcmc.nopack", new StringTextComponent("mcmc.dev/modpack-setup").setStyle(setupModpackStyle)), Util.DUMMY_UUID);
+		}
+
 		MCMCMod.hasCrashed = false;
 		currentSession = null;
-		PlayerEntity p = event.getPlayer();
 
-		if (p != null && !MCMCMod.modpackProperties.version.isEmpty() && !launchId.isEmpty())
+		String token = MCMCMod.getToken();
+
+		if (!token.isEmpty() && !token.equals("-"))
 		{
-			String token = MCMCMod.getToken();
-
-			if (!token.isEmpty() && !token.equals("-"))
+			if (!launchId.isEmpty())
 			{
 				MCMCMod.queue(new ClientStartTask(launchId, Minecraft.getInstance().getProxy()));
 			}

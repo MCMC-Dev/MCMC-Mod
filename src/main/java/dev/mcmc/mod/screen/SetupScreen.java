@@ -1,6 +1,7 @@
 package dev.mcmc.mod.screen;
 
 import com.google.gson.JsonObject;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import dev.mcmc.mod.Connection;
 import dev.mcmc.mod.MCMCMod;
 import dev.mcmc.mod.data.ClientLaunchTask;
@@ -50,7 +51,7 @@ public class SetupScreen extends Screen
 		textList.add(I18n.format("mcmc.setup.info.2"));
 		moreInfo = "[ " + I18n.format("mcmc.setup.info.more") + " ]";
 
-		textList = font.listFormattedStringToWidth(String.join("\n", textList), width / 5 * 3);
+		//textList = font.listFormattedStringToWidth(String.join("\n", textList), width / 5 * 3);
 
 		totalHeight = textList.size() * 10 + 50;
 		moreInfoWidth = font.getStringWidth(moreInfo);
@@ -58,8 +59,8 @@ public class SetupScreen extends Screen
 
 		int by = (height - totalHeight) / 2 + totalHeight - 20;
 
-		addButton(buttonYes = new Button(width / 2 - 110, by, 100, 20, I18n.format("gui.yes"), this::yesButton));
-		addButton(buttonNo = new Button(width / 2 + 10, by, 100, 20, I18n.format("gui.no"), this::noButton));
+		addButton(buttonYes = new Button(width / 2 - 110, by, 100, 20, new TranslationTextComponent("gui.yes"), this::yesButton));
+		addButton(buttonNo = new Button(width / 2 + 10, by, 100, 20, new TranslationTextComponent("gui.no"), this::noButton));
 	}
 
 	private void yesButton(Button button)
@@ -104,25 +105,25 @@ public class SetupScreen extends Screen
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTick)
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTick)
 	{
-		renderBackground();
+		renderBackground(matrixStack);
 
 		for (int i = 0; i < textList.size(); i++)
 		{
-			drawCenteredString(font, textList.get(i), width / 2, (height - totalHeight) / 2 + i * 10, 0xFFFFFF);
+			drawCenteredString(matrixStack, font, textList.get(i), width / 2, (height - totalHeight) / 2 + i * 10, 0xFFFFFF);
 		}
 
 		if (mouseY >= moreInfoY - 2 && mouseY < moreInfoY + 12 && mouseX > (width - moreInfoWidth) / 2D && mouseX < (width - moreInfoWidth) / 2D + moreInfoWidth)
 		{
-			drawCenteredString(font, TextFormatting.UNDERLINE + moreInfo, width / 2, moreInfoY, 0xFFFFFF);
+			drawCenteredString(matrixStack, font, TextFormatting.UNDERLINE + moreInfo, width / 2, moreInfoY, 0xFFFFFF);
 		}
 		else
 		{
-			drawCenteredString(font, moreInfo, width / 2, moreInfoY, 0xFFFFFF);
+			drawCenteredString(matrixStack, font, moreInfo, width / 2, moreInfoY, 0xFFFFFF);
 		}
 
-		super.render(mouseX, mouseY, partialTick);
+		super.render(matrixStack, mouseX, mouseY, partialTick);
 	}
 
 	@Override

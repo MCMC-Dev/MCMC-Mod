@@ -40,11 +40,6 @@ public class ClientCrashTask implements Runnable
 	{
 		try
 		{
-			if (MCMCMod.modpackProperties.version.isEmpty())
-			{
-				return;
-			}
-
 			JsonObject json = new JsonObject();
 
 			List<String> log = Files.readAllLines(FMLPaths.GAMEDIR.get().resolve("logs/latest.log"), StandardCharsets.UTF_8);

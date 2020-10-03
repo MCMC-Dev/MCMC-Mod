@@ -3,7 +3,7 @@
 	"mcmc.setup.info.1": "This mod collects analytics data and automatically sends crash reports to modpack authors",
 	"mcmc.setup.info.2": "Participating helps modpack authors find issues faster and see useful data about their modpacks",
 	"mcmc.setup.info.more": "Click here for more info",
-	"mcmc.nopack": "Modpack isn't set up properly! Open MCMC Settings from options menu",
+	"mcmc.nopack": "You have MCMC Mod installed, but the modpack isn't set up properly! Go to %s and follow instructions",
 	"mcmc.account_linked": "Your MCMC account has been linked with your Minecraft account!",
 	"mcmc.connection_success": "Thank you for participating!",
 	"mcmc.connection_fail": "Failed to connect!",

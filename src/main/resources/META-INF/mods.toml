@@ -1,9 +1,10 @@
-modLoader="javafml"
-loaderVersion="[26,)"
-issueTrackerURL="https://github.com/MCMC-Dev/MCMC-Mod/issues"
+modLoader = "javafml"
+loaderVersion = "[32,)"
+issueTrackerURL = "https://github.com/MCMC-Dev/MCMC-Mod/issues"
+license = "GNU LGPLv2.1"
 
 [[mods]]
-modId="mcmc"
+modId = "mcmcmod"
 version = "${file.jarVersion}"
 displayName = "MCMC Mod"
 authors = "LatvianModder"
@@ -14,14 +15,14 @@ url="https://mcmc.dev/about"
 
 [[dependencies.mcmc]]
     modId="forge"
-    mandatory=true
-    versionRange="[26,)"
-    ordering="NONE"
+mandatory = true
+versionRange = "[32,)"
+ordering = "NONE"
     side="BOTH"
 
 [[dependencies.mcmc]]
     modId="minecraft"
-    mandatory=true
-    versionRange="[1.14,)"
-    ordering="NONE"
+mandatory = true
+versionRange = "[1.16.2,)"
+ordering = "NONE"
     side="BOTH"
