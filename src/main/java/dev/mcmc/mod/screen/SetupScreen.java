@@ -9,7 +9,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.toasts.SystemToast;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -24,7 +26,7 @@ import java.util.List;
 public class SetupScreen extends Screen
 {
 	public final Screen parentScreen;
-	private List<String> textList;
+	private List<IReorderingProcessor> textList;
 	public Button buttonNo, buttonYes;
 	public int totalHeight;
 	public int moreInfoWidth;
@@ -40,18 +42,30 @@ public class SetupScreen extends Screen
 	@Override
 	protected void init()
 	{
-		textList = new ArrayList<>();
+		List<ITextComponent> textList1 = new ArrayList<>();
 
-		textList.add(TextFormatting.AQUA + "== MCMC Mod ==" + TextFormatting.RESET);
-		textList.add("");
-		textList.add(TextFormatting.YELLOW + I18n.format("mcmc.setup.question") + TextFormatting.RESET);
-		textList.add("");
-		textList.add(I18n.format("mcmc.setup.info.1"));
-		textList.add("");
-		textList.add(I18n.format("mcmc.setup.info.2"));
+		textList1.add(new StringTextComponent("== MCMC Mod ==").mergeStyle(TextFormatting.AQUA));
+		textList1.add(StringTextComponent.EMPTY);
+		textList1.add(new TranslationTextComponent("mcmc.setup.question").mergeStyle(TextFormatting.YELLOW));
+		textList1.add(StringTextComponent.EMPTY);
+		textList1.add(new TranslationTextComponent("mcmc.setup.info.1"));
+		textList1.add(StringTextComponent.EMPTY);
+		textList1.add(new TranslationTextComponent("mcmc.setup.info.2"));
 		moreInfo = "[ " + I18n.format("mcmc.setup.info.more") + " ]";
 
-		//textList = font.listFormattedStringToWidth(String.join("\n", textList), width / 5 * 3);
+		textList = new ArrayList<>();
+
+		for (ITextComponent component : textList1)
+		{
+			if (component == StringTextComponent.EMPTY)
+			{
+				textList.add(IReorderingProcessor.field_242232_a);
+			}
+			else
+			{
+				textList.addAll(font.trimStringToWidth(component, width / 5 * 3));
+			}
+		}
 
 		totalHeight = textList.size() * 10 + 50;
 		moreInfoWidth = font.getStringWidth(moreInfo);
@@ -111,7 +125,7 @@ public class SetupScreen extends Screen
 
 		for (int i = 0; i < textList.size(); i++)
 		{
-			drawCenteredString(matrixStack, font, textList.get(i), width / 2, (height - totalHeight) / 2 + i * 10, 0xFFFFFF);
+			font.func_238407_a_(matrixStack, textList.get(i), (width - font.func_243245_a(textList.get(i))) / 2F, (height - totalHeight) / 2F + i * 10, 0xFFFFFF);
 		}
 
 		if (mouseY >= moreInfoY - 2 && mouseY < moreInfoY + 12 && mouseX > (width - moreInfoWidth) / 2D && mouseX < (width - moreInfoWidth) / 2D + moreInfoWidth)

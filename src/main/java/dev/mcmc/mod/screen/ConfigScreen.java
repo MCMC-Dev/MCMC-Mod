@@ -52,7 +52,14 @@ public class ConfigScreen extends Screen
 
 		for (ITextComponent component : textList1)
 		{
-			textList.addAll(font.trimStringToWidth(component, width / 5 * 3));
+			if (component == StringTextComponent.EMPTY)
+			{
+				textList.add(IReorderingProcessor.field_242232_a);
+			}
+			else
+			{
+				textList.addAll(font.trimStringToWidth(component, width / 5 * 3));
+			}
 		}
 
 		totalHeight = textList.size() * 10 + 50;
@@ -83,7 +90,7 @@ public class ConfigScreen extends Screen
 
 		for (int i = 0; i < textList.size(); i++)
 		{
-			font.drawStringWithShadow(matrixStack, "ABC", (width - font.func_243245_a(textList.get(i))) / 2F, (height - totalHeight) / 2F + i * 10F, 0xFFFFFF);
+			font.func_238407_a_(matrixStack, textList.get(i), (width - font.func_243245_a(textList.get(i))) / 2F, (height - totalHeight) / 2F + i * 10F, 0xFFFFFF);
 		}
 
 		if (mouseY >= moreInfoY - 2 && mouseY < moreInfoY + 12 && mouseX > (width - moreInfoWidth) / 2D && mouseX < (width - moreInfoWidth) / 2D + moreInfoWidth)
